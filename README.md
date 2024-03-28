@@ -36,9 +36,6 @@ Contributions are welcome! If you encounter any issues or have suggestions for i
 **Author:**
 emulkin
 
-**Contact:**
-For inquiries or support, please contact [Your Email Address].
-
 **Acknowledgements:**
 Special thanks to the creators of the libraries and technologies used in this project.
 
