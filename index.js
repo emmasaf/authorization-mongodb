@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes');
 const userInfoRoutes = require('./routes/userInfoRoutes');
+const postRoutes = require('./routes/postRoutes');
+
 const cors = require('cors')
 require('dotenv').config()
 
@@ -19,6 +21,8 @@ app.use(express.json())
 app.use(cors())
 app.use('/auth', authRoutes);
 app.use('/auth/user', userInfoRoutes);
+app.use('/auth/posts', postRoutes);
+
 
 
 app.listen(port, err => {
