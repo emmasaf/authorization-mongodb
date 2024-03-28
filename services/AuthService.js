@@ -1,9 +1,12 @@
 const bcrypt = require('bcrypt')
+const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
 const UserModel = require('../models/User')
 require('dotenv').config()
 
 const key = process.env.SECRET_KEY
+const user_email = process.env.SEND_MAIL
+const user_password = process.env.SEND_MAIL_PASSWORD
 
 exports.registerUser = async ({ email, password, fullName, avatarUrl }) => {
   try {
@@ -20,36 +23,54 @@ exports.registerUser = async ({ email, password, fullName, avatarUrl }) => {
     return await user.save()
   } catch (error) {
     console.log(error)
-    res.status(500).json({
-      message: 'Failed register',
+    return error
+  }
+}
+
+exports.sendRegistrationMail = async ({ email }) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: user_email,
+        pass: user_password,
+      },
     })
+
+    const info = await transporter.sendMail({
+      from: user_email,
+      to: email,
+      subject: 'Registration ✔',
+      text: 'You were successfully registered',
+      html: '',
+    })
+
+    return info
+  } catch (e) {
+    return e
   }
 }
 
 exports.loginUser = async ({ email, password }) => {
   try {
-    const user = await UserModel.findOne({email})
+    const user = await UserModel.findOne({ email })
 
-    if(!user){
-      return res.status(404).json({
-        message:"User with this email does not exist"
-      })
+    if (!user) {
+      console.log(error)
+      return error
     }
 
-    const isValidpass = await bcrypt.compare(password,user._doc.passwordHash)
-  
-    if(!isValidpass){
-      return res.status(404).json({
-        message:"User password is wrong"
-      })
+    const isValidpass = await bcrypt.compare(password, user._doc.passwordHash)
+
+    if (!isValidpass) {
+      console.log(error)
+      return error
     }
 
     return user
   } catch (error) {
     console.log(error)
-    res.status(500).json({
-      message: 'Failed login',
-    })
+    return error
   }
 }
 
