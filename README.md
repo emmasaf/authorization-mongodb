@@ -22,7 +22,8 @@ This project is a backend application built with Node.js and MongoDB, focusing o
 1. Clone the repository: `git clone https://github.com/emmasaf/authorization-mongodb.git`
 2. Install dependencies: `npm install`
 3. Create a `.env` file in the project root directory and add necessary environment variables (e.g., `PORT`, `DB_URL`, `SECRET_KEY`).
-4. Start the server: `npm run dev`
+4. Change `SEND_MAIL_PASSWORD` and `SEND_MAIL` into your gmail data
+5. Start the server: `npm run dev`
 
 **API Endpoints:**
 - POST `/auth/register`: Register a new user.
