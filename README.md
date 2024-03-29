@@ -25,9 +25,17 @@ This project is a backend application built with Node.js and MongoDB, focusing o
 4. Start the server: `npm run dev`
 
 **API Endpoints:**
-- POST `/auth/register`: Register a new user.
-- POST `/auth/login`: Log in with existing credentials and receive a JWT.
-- GET `/auth/user`: Retrieve user profile information (protected route, requires authentication).
+- Authentication:
+  - POST `/auth/register`: Register a new user.
+  - POST `/auth/login`: Log in with existing credentials and receive a JWT.
+  - GET `/auth/user`: Retrieve user profile information (protected route, requires authentication).
+- User Posts:
+  - GET `/posts/all`: Retrieve all user posts (protected route, requires authentication).
+  - GET `/posts/:postId`: Retrieve a specific user post by its ID (protected route, requires authentication).
+  - DELETE `/posts/delete/:postId`: Delete a user post by its ID (protected route, requires authentication).
+  - POST `/posts/add`: Add a new user post (protected route, requires authentication).
+  - PUT `/posts/edit/:postId`: Edit an existing user post by its ID (protected route, requires authentication).
+
 
 **Contributing:**
 Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
