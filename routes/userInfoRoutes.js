@@ -1,9 +1,9 @@
 const express = require('express');
 const UserInfoController = require('../controllers/UserInfoController');
-const checkToken = require('../middlewares/checkAuth')
+const checkAuth = require('../middlewares/checkAuth')
 
 const router = express.Router();
 
-router.get('/',checkToken, UserInfoController.getUserInfo);
+router.get('/',checkAuth, UserInfoController.getUserInfo);
 
 module.exports = router;

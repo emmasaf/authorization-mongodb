@@ -3,21 +3,18 @@ require('dotenv').config()
 
 const key = process.env.SECRET_KEY
 
-function check(req, res, next) {
-  const token = (req.headers.authorization || '').replace(/Bearer\s?/, '')
+function checkAuth(req, res, next) {
+  const token = (req.headers.authorization || ' ').replace(/Bearer\s?/, '')
 
-  if (token) {
-    try {
-      const decoded = jwt.verify(token, key)
-
-      req.userId = decoded._id
-      next()
-    } catch (e) {
-      return res.status(403).json({ message: 'User does not exist' })
-    }
-  } else {
-    return res.status(403).json({ message: 'User does not exist' })
+  try {
+    const decoded = jwt.verify(token, key)
+    if (req.body.userId == decoded._id) next()
+    else throw 'Fail'
+  } catch (e) {
+    res.status(500).json({
+      message: 'Failed changing user info',
+    })
   }
 }
 
-module.exports = check
+module.exports = checkAuth

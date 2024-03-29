@@ -17,5 +17,6 @@ exports.getUserInfo = async (req, res) => {
      res.status(500).json({
       message: 'Failed getting user info',
     })
+    throw error
   }
 }

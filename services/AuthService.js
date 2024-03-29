@@ -23,7 +23,7 @@ exports.registerUser = async ({ email, password, fullName, avatarUrl }) => {
     return await user.save()
   } catch (error) {
     console.log(error)
-    return error
+    throw error
   }
 }
 
@@ -47,7 +47,7 @@ exports.sendRegistrationMail = async ({ email }) => {
 
     return info
   } catch (e) {
-    return e
+    throw e
   }
 }
 
@@ -55,22 +55,17 @@ exports.loginUser = async ({ email, password }) => {
   try {
     const user = await UserModel.findOne({ email })
 
-    if (!user) {
-      console.log(error)
-      return error
-    }
-
     const isValidpass = await bcrypt.compare(password, user._doc.passwordHash)
 
     if (!isValidpass) {
-      console.log(error)
-      return error
+      console.log("Is not valid")
+      return "Is not valid"
     }
 
     return user
   } catch (error) {
     console.log(error)
-    return error
+    throw error
   }
 }
 
